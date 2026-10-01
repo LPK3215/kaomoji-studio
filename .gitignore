@@ -1,0 +1,17 @@
+# 依赖
+node_modules/
+
+# 构建产物
+dist/
+.vite/
+
+# 系统 / 编辑器杂物
+.Trash-*/
+.DS_Store
+Thumbs.db
+
+# 日志与本地配置
+*.log
+*.local
+.env
+.env.*
