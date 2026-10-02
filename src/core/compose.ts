@@ -77,7 +77,14 @@ function buildOne(intent: Intent, rnd: () => number): string {
 
   const eyePool = pool(EYES, emo)
   const mouthPool = pool(MOUTHS, emo)
-  const armPool = pool(ARMS, emo)
+  /*
+   * 手臂必须左右等宽。
+   * 手臂永远成对出现，两侧宽度不一致会把整张脸往一边拉偏 ——
+   * 眼睛已经有对称约束，手臂同样需要，否则「看起来是歪的」只是换了个地方发生。
+   */
+  const allArms = pool(ARMS, emo)
+  const balancedArms = allArms.filter((a) => Math.abs(widthOf(a.l) - widthOf(a.r)) <= 1)
+  const armPool = balancedArms.length > 0 ? balancedArms : allArms
   const blushPool = pool(BLUSH, emo)
   const decorPool = pool(DECOR, emo)
 

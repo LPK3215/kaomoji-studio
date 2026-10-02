@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { getAIConfig, saveAIConfig, type AIConfig } from './core/ai'
 import { generate } from './core/pipeline'
 import type { ArtKind, Candidate, Emotion, Intent, Subject } from './core/types'
@@ -42,8 +42,12 @@ export default function App() {
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [hasRun, setHasRun] = useState(false)
 
+  /** 请求序号：快速连点、或开启 AI 后网络请求乱序返回时，只采纳最新一次的结果 */
+  const reqIdRef = useRef(0)
+
   const run = useCallback(async () => {
     if (!raw.trim()) return
+    const reqId = ++reqIdRef.current
     setLoading(true)
     setCopiedId(null)
     try {
@@ -55,12 +59,14 @@ export default function App() {
         useAI,
         aiConfig: useAI ? aiConfig : null,
       })
+      // 过期请求直接丢弃，避免旧结果覆盖新结果
+      if (reqId !== reqIdRef.current) return
       setIntent(result.intent)
       setCandidates(result.candidates)
       setNotes(result.notes)
       setHasRun(true)
     } finally {
-      setLoading(false)
+      if (reqId === reqIdRef.current) setLoading(false)
     }
   }, [raw, kind, emotions, subjects, count, useAI, aiConfig])
 

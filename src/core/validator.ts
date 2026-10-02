@@ -31,9 +31,6 @@ const CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/
 /** 私有使用区：99% 的设备上没有字形，会显示成豆腐块 */
 const PRIVATE_USE = /[\uE000-\uF8FF\u{F0000}-\u{FFFFD}\u{100000}-\u{10FFFD}]/u
 
-/** 已知在部分设备上会渲染异常、需谨慎的字符 */
-const RISKY_CHARS = /[\u2FF0-\u2FFF\u{1D100}-\u{1D1FF}]/u
-
 /**
  * 半格块字符（▀▄█ 及 ░▒▓ 之类）。
  *
@@ -42,6 +39,9 @@ const RISKY_CHARS = /[\u2FF0-\u2FFF\u{1D100}-\u{1D1FF}]/u
  * 这不是缺陷，是平台行为差异，只能如实提示。
  */
 const AMBIGUOUS_BLOCKS = /[\u2580-\u259F]/
+
+/** 冷门文字区：多数设备没有字形，会显示成方块 */
+const RISKY_CHARS = /[\u2FF0-\u2FFF\u{1D100}-\u{1D1FF}\u{17000}-\u{18AFF}]/u
 
 /** 括号配对表：左 → 右 */
 const BRACKET_PAIRS: ReadonlyArray<readonly [string, string]> = [

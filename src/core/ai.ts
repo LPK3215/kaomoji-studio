@@ -96,6 +96,17 @@ export function sanitizeAIResult(input: unknown, raw: string): Partial<Intent> {
   }
 }
 
+/** 把模型输出的 JSON 串解析成对象 */
+function parseModelContent(content: unknown): unknown {
+  if (typeof content !== 'string') throw new Error('AI 返回格式异常')
+  try {
+    return JSON.parse(content)
+  } catch {
+    throw new Error('AI 返回的不是合法 JSON')
+  }
+}
+
+/** 直连上游：Key 在浏览器侧，仅个人本机使用场景适用 */
 export async function parseIntentWithAI(raw: string, cfg: AIConfig): Promise<Partial<Intent>> {
   if (!cfg.apiKey) throw new Error('尚未配置 API Key')
   if (!cfg.baseUrl) throw new Error('尚未配置接口地址')
@@ -123,18 +134,6 @@ export async function parseIntentWithAI(raw: string, cfg: AIConfig): Promise<Par
     throw new Error(`AI 请求失败 ${res.status}${detail ? `：${detail.slice(0, 160)}` : ''}`)
   }
 
-  const data = (await res.json()) as {
-    choices?: Array<{ message?: { content?: unknown } }>
-  }
-  const content = data.choices?.[0]?.message?.content
-  if (typeof content !== 'string') throw new Error('AI 返回格式异常')
-
-  let parsed: unknown
-  try {
-    parsed = JSON.parse(content)
-  } catch {
-    throw new Error('AI 返回的不是合法 JSON')
-  }
-
-  return sanitizeAIResult(parsed, raw)
+  const data = (await res.json()) as { choices?: Array<{ message?: { content?: unknown } }> }
+  return sanitizeAIResult(parseModelContent(data.choices?.[0]?.message?.content), raw)
 }

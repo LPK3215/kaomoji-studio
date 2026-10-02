@@ -102,6 +102,37 @@ export const EYES: readonly EyePart[] = [
   { v: '･', emotions: ['neutral'] },
   { v: '─', emotions: ['tired'] },
   { v: '﹃', emotions: ['tired'] },
+
+  // 开心 / 得意（扩充）
+  { v: 'ᵕ', emotions: ['happy'] },
+  { v: '◠', emotions: ['happy'] },
+  { v: '◍', emotions: ['happy'] },
+  { v: '❃', emotions: ['happy', 'love'] },
+  { v: '◉', emotions: ['happy', 'surprised'] },
+  { v: '￢', emotions: ['smug'] },
+  { v: '︶', emotions: ['smug', 'happy'] },
+
+  // 难过 / 哭（扩充）
+  { v: 'ᗩ', emotions: ['sad', 'cry'] },
+  { v: '◜', emotions: ['sad'] },
+
+  // 生气（扩充）
+  { v: 'ム', emotions: ['angry'] },
+
+  // 惊讶（扩充）
+  { v: 'Ｏ', emotions: ['surprised'] },
+  { v: '◊', emotions: ['surprised'] },
+
+  // 喜欢 / 害羞（扩充）
+  { v: '♥', emotions: ['love'] },
+  { v: '❥', emotions: ['love'] },
+  { v: 'ღ', emotions: ['love'] },
+  { v: '灬', emotions: ['shy'] },
+
+  // 疑惑 / 疲惫 / 中性（扩充）
+  { v: '؟', emotions: ['confused'] },
+  { v: 'ー', emotions: ['tired'] },
+  { v: 'ᐧ', emotions: ['neutral'] },
 ]
 
 export const MOUTHS: readonly MouthPart[] = [
@@ -144,6 +175,25 @@ export const MOUTHS: readonly MouthPart[] = [
   { v: '一', emotions: ['neutral'] },
   { v: '～', emotions: ['confused'] },
   { v: '﹃', emotions: ['tired'] },
+
+  // 开心（扩充）
+  { v: 'ᵕ', emotions: ['happy'] },
+  { v: '◠', emotions: ['happy'] },
+  { v: 'ㅅ', emotions: ['happy'] },
+  { v: 'ㅈ', emotions: ['happy', 'smug'] },
+
+  // 难过 / 生气（扩充）
+  { v: '᷄', emotions: ['sad', 'cry'] },
+  { v: 'ㅂ', emotions: ['angry'] },
+  { v: 'Π', emotions: ['angry'] },
+
+  // 惊讶（扩充）
+  { v: 'இ', emotions: ['surprised'] },
+  { v: 'ㅇ', emotions: ['surprised'] },
+
+  // 得意 / 中性（扩充）
+  { v: '‿', emotions: ['smug'] },
+  { v: 'ㅡ', emotions: ['neutral'] },
 ]
 
 export const ARMS: readonly ArmPart[] = [
@@ -159,6 +209,11 @@ export const ARMS: readonly ArmPart[] = [
   { l: 'ʕ', r: 'ʔ', emotions: ['neutral'] },
   { l: 'ƪ', r: 'ʃ', emotions: ['shy'] },
   { l: '♪', r: '♪', emotions: ['happy'] },
+  { l: 'ᕙ', r: 'ᕗ', emotions: ['angry', 'happy'] },
+  { l: 'ʚ', r: 'ɞ', emotions: ['happy', 'love'] },
+  { l: '⸜', r: '⸝', emotions: ['happy'] },
+  { l: '☚', r: '☛', emotions: ['smug'] },
+  { l: '╰', r: '╯', emotions: ['tired', 'neutral'] },
 ]
 
 export const BLUSH: readonly BlushPart[] = [
@@ -170,6 +225,12 @@ export const BLUSH: readonly BlushPart[] = [
   { v: '♡', emotions: ['love'] },
   { v: '✧', emotions: ['happy', 'smug'] },
   { v: '˃', emotions: ['happy'] },
+  { v: '❁', emotions: ['happy', 'love'] },
+  { v: '✾', emotions: ['happy', 'love'] },
+  { v: '⋆', emotions: ['happy'] },
+  { v: '♢', emotions: ['happy', 'smug'] },
+  { v: '⁄', emotions: ['shy'] },
+  { v: '•', emotions: ['shy'] },
 ]
 
 export const DECOR: readonly DecorPart[] = [
@@ -185,4 +246,12 @@ export const DECOR: readonly DecorPart[] = [
   { v: '。', emotions: ['neutral'] },
   { v: '＊', emotions: ['happy'] },
   { v: '゛', emotions: ['confused'] },
+  { v: '✩', emotions: ['happy'] },
+  { v: '✽', emotions: ['happy'] },
+  { v: '❈', emotions: ['happy'] },
+  { v: '﹡', emotions: ['happy'] },
+  { v: '⟡', emotions: ['happy', 'smug'] },
+  { v: '❃', emotions: ['love'] },
+  { v: '｡', emotions: ['neutral'] },
+  { v: '゜', emotions: ['confused'] },
 ]

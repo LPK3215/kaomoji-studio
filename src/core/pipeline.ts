@@ -124,7 +124,18 @@ export async function generate(raw: string, opts: GenerateOptions = {}): Promise
 
   // ② 字形栅格化分支：拼字是独立算法
   if (intent.kind === 'char_art') {
-    const target = (intent.text ?? raw.replace(/[^\u4e00-\u9fffA-Za-z0-9]/g, '')).slice(0, 4)
+    /*
+     * 目标提取必须收敛，绝不能拿整句输入兜底。
+     * 早期实现是 `(intent.text ?? 清洗后的整句).slice(0, 4)`：
+     * 用户选了「拼字」却写「今天有点委屈」时，会去栅格化前四个字，
+     * 产出一堆毫无意义的符号。现在只在两种情况下认账：
+     *   1. 词典明确抠出了目标（intent.text）
+     *   2. 整句清洗后本身就是 1-4 个合法字符（如「喜」「开心」「OK」）
+     * 都不满足就如实提示，交给用户说清楚。
+     */
+    const compact = raw.replace(/\s+/g, '')
+    const guess = /^[\u4e00-\u9fffA-Za-z0-9]{1,4}$/.test(compact) ? compact : null
+    const target = (intent.text ?? guess)?.slice(0, 4) ?? ''
     if (!target) {
       notes.push('没能识别出要拼的字，请写明「拼一个 X」')
     } else if (!supportsGlyphRaster()) {

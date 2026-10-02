@@ -60,9 +60,18 @@ export function scoreEntry(entry: KaomojiEntry, intent: Intent): number {
   }
 
   const entryKind = kindOf(entry)
+  /*
+   * 「组合颜文字」是一种意图，不是一个产物类型：
+   * 它最终产出的仍然是单行颜文字（成品库里的动作条目也是单行）。
+   * 所以这里把 composed 与 kaomoji 视为同类，动作成品条目才能拿到类型加分，
+   * 不会被通用拼装结果挤到后面。
+   */
+  const sameKind = entryKind === intent.kind || (intent.kind === 'composed' && entryKind === 'kaomoji')
+  const wantsSingleLine = intent.kind === 'kaomoji' || intent.kind === 'composed'
+
   // 明确说要「大图」时，图案的优先级必须压倒单行颜文字，否则会被单行的挤到后面
-  if (entryKind === intent.kind) s += intent.kind === 'picture_art' ? 8 : 3
-  if (intent.kind === 'kaomoji' && entryKind === 'picture_art') s -= 4
+  if (sameKind) s += intent.kind === 'picture_art' ? 8 : 3
+  if (wantsSingleLine && entryKind === 'picture_art') s -= 4
   if (intent.kind === 'picture_art' && entryKind === 'kaomoji') s -= 6
 
   return s

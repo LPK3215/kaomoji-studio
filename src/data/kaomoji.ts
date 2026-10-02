@@ -193,6 +193,77 @@ export const KAOMOJI: readonly KaomojiEntry[] = [
   e('act19', '(∪｡∪)｡｡｡zzz', ['tired'], JP, { actions: ['night'], weight: 3 }),
   e('act20', '(｜｜)', ['tired'], JP, { actions: ['night'] }),
 
+  /* ---------- 扩充：开心 ---------- */
+  e('h16', '(❁´◡`❁)', ['happy'], JP, { weight: 3 }),
+  e('h17', '( ᵔ ◡ ᵔ )', ['happy'], JP, { weight: 4 }),
+  e('h18', '(★‿★)', ['happy'], JP, { weight: 2 }),
+  e('h19', '♪(´▽｀)', ['happy'], JP, { actions: ['greet'], weight: 3 }),
+  e('h20', '(＾ω＾)', ['happy'], JP, { weight: 4 }),
+  e('h21', '(*ﾉ▽ﾉ)', ['happy', 'shy'], JP, { weight: 3 }),
+
+  /* ---------- 扩充：难过 ---------- */
+  e('s12', '(´-ω-`)', ['sad'], JP, { weight: 3 }),
+  e('s13', '(っ-ω-ς)', ['sad'], JP),
+  e('s14', '(-ω-、)', ['sad'], JP, { weight: 2 }),
+
+  /* ---------- 扩充：生气 ---------- */
+  e('a9', '(＃`д´)ﾉ', ['angry'], JP, { weight: 3 }),
+  e('a10', '(>_<)', ['angry'], ASCII, { weight: 3 }),
+  e('a11', '٩(╬ʘ益ʘ╬)۶', ['angry'], JP, { weight: 2 }),
+
+  /* ---------- 扩充：惊讶 ---------- */
+  e('u6', '(°ロ°) !', ['surprised'], JP, { weight: 3 }),
+  e('u7', 'Σ(ﾟДﾟ)', ['surprised'], JP, { weight: 5 }),
+  e('u8', '(๑°口°๑)', ['surprised'], JP, { weight: 2 }),
+
+  /* ---------- 扩充：喜欢 ---------- */
+  e('l8', '(♡∀♡)', ['love'], JP, { weight: 3 }),
+  e('l9', '(*´ω｀*)', ['love', 'happy'], JP, { weight: 3 }),
+  e('l10', '(♡ᴗ♡)', ['love'], JP, { weight: 2 }),
+
+  /* ---------- 扩充：害羞 ---------- */
+  e('y5', '(´｡• ω •｡`)', ['shy'], JP, { weight: 3 }),
+  e('y6', '(/ω＼)', ['shy'], JP, { weight: 3 }),
+
+  /* ---------- 扩充：疑惑 ---------- */
+  e('c6', '(-_-;)', ['confused'], ASCII),
+  e('c7', '(・∀・)?', ['confused'], JP),
+
+  /* ---------- 扩充：疲惫 ---------- */
+  e('t5', '(￣﹃￣)', ['tired'], JP, { weight: 2 }),
+  e('t6', '(´～`) zzZ', ['tired'], ASCII, { actions: ['night'], weight: 3 }),
+
+  /* ---------- 扩充：得意 ---------- */
+  e('m6', '(￣▽￣)ノ', ['smug'], JP, { weight: 3 }),
+
+  /* ---------- 扩充：大哭 ---------- */
+  e('k7', '(;_;)', ['cry'], ASCII, { weight: 3 }),
+  e('k8', '(╥_╥)', ['cry'], JP, { weight: 3 }),
+  e('k9', '(T﹏T)', ['cry'], ASCII, { weight: 4 }),
+
+  /* ---------- 扩充：平静 ---------- */
+  e('n5', '(・∀・)', ['neutral'], JP, { weight: 3 }),
+  e('n6', '( ˙-˙ )', ['neutral'], ASCII),
+
+  /* ---------- 扩充：动物 ---------- */
+  e('cat8', '(=^·^=)', ['happy'], JP, { subjects: ['cat'], weight: 2 }),
+  e('cat9', '(=ㅇㅅㅇ=)', ['happy'], JP, { subjects: ['cat'], weight: 2 }),
+  e('rab6', '(・ᴥ・)', ['happy'], JP, { subjects: ['rabbit'], weight: 2 }),
+  e('bear4', 'ʕ•̀ᴥ•́ʔ', ['angry'], JP, { subjects: ['bear'], weight: 2 }),
+  e('dog6', '▽･ｪ･▽ﾉ', ['happy'], JP, { subjects: ['dog'], actions: ['greet'], weight: 3 }),
+  e('bird3', '(・ө・)', ['neutral'], JP, { subjects: ['bird'], weight: 2 }),
+  e('pig3', '(Φ(00)Φ)', ['neutral'], JP, { subjects: ['pig'], weight: 2 }),
+
+  /* ---------- 扩充：动作 ---------- */
+  e('act21', '(・∀・)ノ', ['happy'], JP, { actions: ['greet'], weight: 3 }),
+  e('act22', '٩(ˊᗜˋ*)و✧', ['happy', 'smug'], JP, { actions: ['cheer'], weight: 4 }),
+  e('act23', '♡(｡- ω -)', ['love'], JP, { actions: ['thanks'], weight: 3 }),
+  e('act24', '_(．_．)_', ['sad'], JP, { actions: ['sorry'], weight: 2 }),
+  e('act25', '(＿ ＿*) Z z z', ['tired'], ASCII, { actions: ['night'], weight: 3 }),
+  e('act26', '( -_・)b', ['smug'], JP, { actions: ['ok'], weight: 2 }),
+  e('act27', '(シ_ _)シ', ['sad'], JP, { actions: ['pray'], weight: 3 }),
+  e('act28', 'ε=ε=┌( >_<)┘', ['surprised'], JP, { actions: ['run'], weight: 3 }),
+
   /* ---------- 图案（多行，需等宽） ---------- */
   e(
     'pic1',
@@ -207,6 +278,20 @@ export const KAOMOJI: readonly KaomojiEntry[] = [
     ['happy'],
     ASCII,
     { subjects: ['rabbit'] },
+  ),
+  e(
+    'pic3',
+    ['   /\\_/\\', '  ( o.o )', '   > ^ <'].join('\n'),
+    ['happy'],
+    ASCII,
+    { subjects: ['cat'] },
+  ),
+  e(
+    'pic4',
+    ['   /\\_/\\', '  ( ^.^ )', '   > ^ <'].join('\n'),
+    ['happy'],
+    ASCII,
+    { subjects: ['cat'] },
   ),
 ]
 

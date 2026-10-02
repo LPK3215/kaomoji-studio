@@ -43,6 +43,15 @@ const GAMMA = 0.6
 /** 半格块的覆盖率门槛：超过这个比例才认为该半格有墨 */
 const BLOCK_INK_NEED = 0.34
 
+/**
+ * 全图最低墨量门槛。
+ *
+ * 设备缺少对应字形时（尤其是没有 CJK 字体的环境），Canvas 会把字符画成空白 ——
+ * 此时整幅覆盖率恒为 0，硬拼出来只会是一堆空格。
+ * 低于此比例即判定渲染失败，返回空串，让上层走兜底而不是输出空白画。
+ */
+const MIN_INK = 0.0005
+
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v))
 
 /**
@@ -73,8 +82,10 @@ export function textToArt(text: string, options: GlyphOptions = {}): string {
   ctx.fillStyle = '#fff'
   ctx.textAlign = 'center'
   ctx.textBaseline = 'alphabetic'
-  // 多字时缩小字号，避免字与字挤在一起
-  ctx.font = `${size * margin * (chars.length > 1 ? 0.85 : 1)}px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", "Hiragino Sans", sans-serif`
+  // 多字时缩小字号，避免字与字挤在一起。
+  // 字体链按「各平台常见 CJK 字体」排序，最后兜到 system-ui / 通用 sans-serif，
+  // 尽量保证汉字有字形可渲染（缺失时由下面的墨量检测兜底）。
+  ctx.font = `${size * margin * (chars.length > 1 ? 0.85 : 1)}px "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC", "WenQuanYi Micro Hei", system-ui, sans-serif`
 
   const slot = size / chars.length
   chars.forEach((ch, i) => {
@@ -130,6 +141,11 @@ export function textToArt(text: string, options: GlyphOptions = {}): string {
       coverage[r * cols + c] = n > 0 ? hit / n : 0
     }
   }
+
+  // 墨量检测：字体缺失导致整幅空白时，直接判定失败
+  let inkTotal = 0
+  for (let i = 0; i < coverage.length; i++) inkTotal += coverage[i]
+  if (inkTotal / coverage.length < MIN_INK) return ''
 
   const lines: string[] = []
 

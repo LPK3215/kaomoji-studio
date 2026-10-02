@@ -141,6 +141,8 @@ export function normalize(raw: string, opts: NormalizeOptions = {}): Intent {
   } else if (/(图案|大图|字符画|ascii\s*art|横幅|一整只|拼一个图)/i.test(raw)) {
     kind = 'picture_art'
   } else if (actions.length > 0) {
+    // composed 表达的是「想要带动作的组合感」，是意图而非产物类型；
+    // 检索层会把 composed 与 kaomoji 视为同类，动作成品条目照样能命中加分。
     kind = 'composed'
   }
   // 注意：只提到「猫」「兔子」这类主体时，不强行判成图案。
