@@ -2,6 +2,17 @@
   "name": "kaomoji-studio",
   "private": true,
   "version": "0.1.0",
+  "description": "输入一句话，生成可直接复制的颜文字 / 组合颜文字 / 拼字 / 图案。",
+  "license": "MIT",
+  "keywords": ["kaomoji", "颜文字", "ascii-art", "react", "vite"],
+  "repository": {
+    "type": "git",
+    "url": "https://cnb.cool/lpk3215/yanwenzi.git"
+  },
+  "author": "cnb.lpk",
+  "engines": {
+    "node": ">=18"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",

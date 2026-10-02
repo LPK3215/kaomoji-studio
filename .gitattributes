@@ -1,0 +1,23 @@
+# 统一行尾：仓库内一律 LF，检出时由 git 按需转换
+* text=auto eol=lf
+
+# 文本文件明确声明为文本
+*.ts    text eol=lf
+*.tsx   text eol=lf
+*.css   text eol=lf
+*.html  text eol=lf
+*.json  text eol=lf
+*.md    text eol=lf
+
+# 二进制文件不做行尾转换
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
+
+# lock 文件与产物不计入 diff / 语言统计
+package-lock.json -diff linguist-generated=true
+dist/**           linguist-generated=true

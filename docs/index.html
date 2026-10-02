@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>颜文字工坊 · 项目全景观览</title>
+  <meta name="description" content="颜文字工坊（Kaomoji Studio）项目全景观览：输入一句话，得到一组可直接复制粘贴的符号作品。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+
+  <header class="topbar" id="topbar">
+    <button class="hamburger" id="hamburger" aria-label="打开目录">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="brand" href="#hero">
+      <span class="brand-mark">ಥ﹏ಥ</span>
+      <span class="brand-text">颜文字工坊 <em>Kaomoji Studio</em></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#intro">简介</a>
+      <a href="#architecture">架构</a>
+      <a href="#stack">技术栈</a>
+      <a href="#methods">核心方法</a>
+      <a href="#data">词库构成</a>
+      <a href="#structure">目录结构</a>
+      <a href="#quickstart">快速开始</a>
+      <a href="#api">使用示例</a>
+      <a href="#quality">质量保障</a>
+      <a href="#docs">文档索引</a>
+      <a href="#license">许可</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+      <svg viewBox="0 0 24 24" width="18" height="18"><path class="icon-moon" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle class="icon-sun" cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+    </button>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <p class="sidebar-title">目录</p>
+      <nav class="toc">
+        <a href="#hero">总览</a>
+        <a href="#intro">项目简介</a>
+        <a href="#architecture">架构全景</a>
+        <a href="#stack">技术栈</a>
+        <a href="#methods">核心方法</a>
+        <a href="#data">词库构成</a>
+        <a href="#structure">目录结构</a>
+        <a href="#quickstart">快速开始</a>
+        <a href="#api">使用示例</a>
+        <a href="#quality">质量保障</a>
+        <a href="#docs">文档索引</a>
+        <a href="#contributing">贡献指南</a>
+        <a href="#license">许可证与作者</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+
+      <!-- ============ Hero ============ -->
+      <section id="hero" class="hero">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="hero-inner">
+          <p class="hero-badge">v0.1.0 · MIT · 零后端</p>
+          <h1 class="hero-title">颜文字工坊<br><span>Kaomoji Studio</span></h1>
+          <p class="hero-sub">输入一句话，得到一组<strong>可以直接复制粘贴</strong>的符号作品。</p>
+          <div class="hero-tags">
+            <span>React 18</span><span>TypeScript 5</span><span>Vite 5</span>
+            <span>零第三方运行时依赖</span><span>AI 可选</span>
+          </div>
+          <div class="hero-samples" aria-hidden="true">
+            <span>ಥ﹏ಥ</span><span>≽^⚈⩊⚈^≼</span><span>٩(*´◒`*)۶</span><span>( ◢д◣)</span><span>(˘̩̩̩ε˘̩ƪ)</span>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat card"><b class="count" data-target="167">0</b><span>成品库条目</span></div>
+          <div class="stat card"><b class="count" data-target="146">0</b><span>组件零件</span></div>
+          <div class="stat card"><b class="count" data-target="3">0</b><span>生成策略</span></div>
+          <div class="stat card"><b class="count" data-target="11">0</b><span>情绪维度</span></div>
+          <div class="stat card"><b class="count" data-target="7">0</b><span>主体维度</span></div>
+        </div>
+      </section>
+
+      <!-- ============ 项目简介 ============ -->
+      <section id="intro" class="section">
+        <h2 class="section-title">项目简介</h2>
+        <div class="card prose">
+          <p>颜文字（Kaomoji）是一类<strong>纯文本</strong>的表情符号。它的问题是：好看的组合往往记不住，而随手敲的又经常歪。</p>
+          <p>本项目解决的就是这一步：<strong>把「我想要什么」翻译成一组可直接粘贴的成品</strong>，并且保证这些成品在等宽环境下排版不歪、字符在主流设备上都能正常显示。</p>
+
+          <h3>核心价值主张</h3>
+          <ul class="ticks">
+            <li><b>确定性优先</b>：颜文字永远由工具产出，不是模型写的。输出可校验、可复现、可回退。</li>
+            <li><b>零模型可用</b>：AI 是可选开关，默认关闭；关闭时全流程零模型调用。</li>
+            <li><b>宽度优先排版</b>：所有对齐都走真实的显示列宽，而不是 <code>str.length</code>。</li>
+            <li><b>零第三方运行时依赖</b>：除 React 外全部手写，构建产物 gzip 后约 60 KB。</li>
+          </ul>
+
+          <h3>与同类做法的差异</h3>
+          <table class="table">
+            <thead><tr><th>维度</th><th>常见做法</th><th>本项目</th></tr></thead>
+            <tbody>
+              <tr><td>内容来源</td><td>让模型直接「写」颜文字</td><td>模型只输出结构化意图，颜文字由成品库 / 拼装 / 栅格化产出</td></tr>
+              <tr><td>排版基准</td><td><code>str.length</code> 或目测</td><td><code>displayWidth()</code>（EAW + 组合字符 + VS16）</td></tr>
+              <tr><td>质量兜底</td><td>无</td><td>统一走校验器（宽度 / 括号 / 行数 / 字符安全）</td></tr>
+              <tr><td>可复现性</td><td>每次结果不同</td><td>组件拼装用种子伪随机，同样输入必得同样输出</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ 架构全景 ============ -->
+      <section id="architecture" class="section">
+        <h2 class="section-title">架构全景</h2>
+        <div class="card">
+          <p class="prose">一条流水线，五个环节，三条并行的生成策略。模型只出现在「意图解析」且是可选的，其余环节全是确定性工具。</p>
+
+          <div class="diagram" id="diagram">
+            <svg viewBox="0 0 1120 400" class="arch-svg" role="img" aria-label="生成流水线架构图">
+              <defs>
+                <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" class="arrow-head"/>
+                </marker>
+                <linearGradient id="nodeGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" class="grad-a"/><stop offset="100%" class="grad-b"/>
+                </linearGradient>
+              </defs>
+
+              <g class="node" data-tip="用户输入的自然语言，例如「委屈的小狗」">
+                <rect x="18" y="164" width="112" height="72" rx="12"/>
+                <text x="74" y="196" class="node-title">输入</text>
+                <text x="74" y="216" class="node-sub">一句话</text>
+              </g>
+
+              <path class="link" d="M 142 200 H 168" marker-end="url(#arrowhead)"/>
+
+              <g class="node accent" data-tip="src/core/lexicon.ts —— 词典归一为结构化意图；开启 AI 时由模型修正">
+                <rect x="176" y="164" width="152" height="72" rx="12"/>
+                <text x="252" y="196" class="node-title">意图解析</text>
+                <text x="252" y="216" class="node-sub">lexicon</text>
+              </g>
+
+              <path class="link" d="M 340 200 H 364"/>
+              <path class="link" d="M 340 200 V 92 H 364" marker-end="url(#arrowhead)"/>
+              <path class="link" d="M 340 200 V 200 H 364" marker-end="url(#arrowhead)"/>
+              <path class="link" d="M 340 200 V 308 H 364" marker-end="url(#arrowhead)"/>
+
+              <g class="node green" data-tip="src/core/retrieve.ts —— 成品库按情绪/主体/动作加权打分，命中即直出">
+                <rect x="376" y="60" width="196" height="64" rx="12"/>
+                <text x="474" y="88" class="node-title">成品库检索</text>
+                <text x="474" y="108" class="node-sub">retrieve · 167 条</text>
+              </g>
+              <g class="node" data-tip="src/core/compose.ts —— 按语法拼装零件，三条硬约束（括号配对 / 左右眼近宽 / 手臂成对等宽）">
+                <rect x="376" y="168" width="196" height="64" rx="12"/>
+                <text x="474" y="196" class="node-title">组件拼装</text>
+                <text x="474" y="216" class="node-sub">compose · 146 零件</text>
+              </g>
+              <g class="node amber" data-tip="src/core/glyph.ts —— Canvas 覆盖率映射 + 半格块，把文字栅格成符号画">
+                <rect x="376" y="276" width="196" height="64" rx="12"/>
+                <text x="474" y="304" class="node-title">字形栅格化</text>
+                <text x="474" y="324" class="node-sub">glyph · Canvas</text>
+              </g>
+
+              <path class="link" d="M 584 92 H 610 V 200" />
+              <path class="link" d="M 584 200 H 610" marker-end="url(#arrowhead)"/>
+              <path class="link" d="M 584 308 H 610 V 200" />
+
+              <g class="node green" data-tip="src/core/validator.ts —— 质量闸门：宽度 / 括号 / 行数 / 字符安全">
+                <rect x="622" y="164" width="152" height="72" rx="12"/>
+                <text x="698" y="196" class="node-title">质量校验</text>
+                <text x="698" y="216" class="node-sub">validator</text>
+              </g>
+
+              <path class="link" d="M 786 200 H 812" marker-end="url(#arrowhead)"/>
+
+              <g class="node accent" data-tip="pipeline.ts —— 去重 + 按策略轮流取，保证候选多样性">
+                <rect x="824" y="164" width="132" height="72" rx="12"/>
+                <text x="890" y="196" class="node-title">策展</text>
+                <text x="890" y="216" class="node-sub">去重 · 均衡</text>
+              </g>
+
+              <path class="link" d="M 968 200 H 994" marker-end="url(#arrowhead)"/>
+
+              <g class="node" data-tip="每条都通过校验，可直接复制粘贴">
+                <rect x="1006" y="164" width="96" height="72" rx="12"/>
+                <text x="1054" y="196" class="node-title">输出</text>
+                <text x="1054" y="216" class="node-sub">可复制</text>
+              </g>
+            </svg>
+            <div class="tip" id="tip"></div>
+          </div>
+
+          <div class="diagram-foot">
+            <span class="dot green"></span>成品库检索
+            <span class="dot violet"></span>组件拼装 / 解析
+            <span class="dot amber"></span>字形栅格化
+            <em>悬停任意节点查看说明</em>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 技术栈 ============ -->
+      <section id="stack" class="section">
+        <h2 class="section-title">技术栈</h2>
+        <div class="card">
+          <table class="table">
+            <thead><tr><th>类别</th><th>选型</th><th>版本</th><th>说明</th></tr></thead>
+            <tbody>
+              <tr><td>UI</td><td>React</td><td><code>^18.3.1</code></td><td>唯一的前端框架</td></tr>
+              <tr><td>语言</td><td>TypeScript</td><td><code>^5.6.3</code></td><td><code>strict</code> 全开</td></tr>
+              <tr><td>构建</td><td>Vite</td><td><code>^5.4.11</code></td><td>构建目标 <code>es2022</code></td></tr>
+              <tr><td>运行时</td><td>Node.js</td><td><code>&gt;= 18</code></td><td>仅构建与脚本需要</td></tr>
+              <tr><td>运行时依赖</td><td>react / react-dom</td><td>—</td><td>除此之外无第三方依赖</td></tr>
+              <tr><td>图形能力</td><td>Canvas 2D</td><td>—</td><td>字形栅格化，手写实现</td></tr>
+            </tbody>
+          </table>
+          <p class="note">显示宽度计算、字形栅格化、组件拼装、校验器均为手写实现 —— 没有引入任何排版或图形库。</p>
+        </div>
+      </section>
+
+      <!-- ============ 核心方法 ============ -->
+      <section id="methods" class="section">
+        <h2 class="section-title">核心方法</h2>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>① 显示宽度：一切排版的地基</h3>
+            <p class="prose">中文占 2 列、组合记号占 0 列、VS16 会把字符从 1 列升级为 2 列。用 <code>str.length</code> 排版，一歪就是歪一片。</p>
+            <div class="code" data-lang="ts">
+              <div class="code-head"><span>src/core/width.ts</span><button class="copy">复制</button></div>
+<pre><code>(˘̩̩̩ε˘̩ƪ).length        // 13  ← 无意义
+displayWidth('(˘̩̩̩ε˘̩ƪ)')  // 9   ← 真实列宽
+displayWidth('好')          // 2
+displayWidth('⚈')          // 1</code></pre>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>② 组件拼装：语法 + 硬约束</h3>
+            <p class="prose">零件按情绪打标签，按固定语法拼装。生成后不满足约束就丢弃重来。</p>
+            <div class="code" data-lang="text">
+              <div class="code-head"><span>src/core/compose.ts —— 语法</span><button class="copy">复制</button></div>
+<pre><code>[装饰] [左臂] [左括号] [腮红] 左眼 [嘴]
+        右眼 [腮红] [右括号] [右臂] [装饰]
+
+约束 1  括号必须配对
+约束 2  左右眼宽度差 &lt;= 2
+约束 3  手臂左右成对且等宽</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>③ 字形栅格化：两个坑</h3>
+          <div class="grid-2 tight">
+            <div>
+              <p class="kicker">坑一 · 均值映射会把细笔画吃掉</p>
+              <p class="prose">一格中只有 30% 面积是笔画时，平均亮度会掉到接近空白。改用<strong>覆盖率</strong>（超过阈值的像素占比）配 <code>gamma</code> 提升对比度，笔画才立得起来。</p>
+            </div>
+            <div>
+              <p class="kicker">坑二 · 字符格宽高比是 1:2</p>
+              <p class="prose">纵向分辨率天然只有横向一半，「喜」的七道横画会糊在一起。解法是<strong>半格块</strong> <code>▀▄█</code>：一个字符格编码上下两个像素，纵向分辨率翻倍。</p>
+            </div>
+          </div>
+          <p class="note">代价：<code>▀▄█</code> 的 East Asian Width 是 <b>Ambiguous</b>，部分中文环境会按 2 列渲染导致横向拉伸。因此默认输出走 <code>symbol</code> 风格（纯窄字符），<code>block</code> 作为可选并在卡片上标注风险。</p>
+        </div>
+      </section>
+
+      <!-- ============ 词库构成 ============ -->
+      <section id="data" class="section">
+        <h2 class="section-title">词库构成</h2>
+        <div class="card">
+          <p class="prose">以下数据直接统计自 <code>src/data/kaomoji.ts</code> 与 <code>src/data/parts.ts</code>，非估算值。</p>
+
+          <div class="tabs" data-tabs="data">
+            <button class="tab on" data-tab="chart">图表视图</button>
+            <button class="tab" data-tab="table">表格视图</button>
+          </div>
+
+          <div class="tab-panel on" data-panel="chart">
+            <div class="chart-grid">
+              <div class="chart-box"><h4>组件库构成（146）</h4><div class="chart-frame"><canvas id="chartParts"></canvas></div></div>
+              <div class="chart-box"><h4>成品库情绪覆盖（167 条，可多标签）</h4><div class="chart-frame"><canvas id="chartEmotions"></canvas></div></div>
+              <div class="chart-box"><h4>主体覆盖</h4><div class="chart-frame"><canvas id="chartSubjects"></canvas></div></div>
+              <div class="chart-box"><h4>动作覆盖</h4><div class="chart-frame"><canvas id="chartActions"></canvas></div></div>
+            </div>
+            <p class="note" id="chartFallback" hidden>图表库（CDN）未能加载，已自动切换到表格视图。</p>
+          </div>
+
+          <div class="tab-panel" data-panel="table">
+            <div class="grid-2 tight">
+              <table class="table">
+                <thead><tr><th>组件类别</th><th>数量</th></tr></thead>
+                <tbody>
+                  <tr><td>眼 EYES</td><td>56</td></tr>
+                  <tr><td>嘴 MOUTHS</td><td>39</td></tr>
+                  <tr><td>装饰 DECOR</td><td>20</td></tr>
+                  <tr><td>臂 ARMS</td><td>17</td></tr>
+                  <tr><td>腮红 BLUSH</td><td>14</td></tr>
+                  <tr><td><b>合计</b></td><td><b>146</b></td></tr>
+                </tbody>
+              </table>
+              <table class="table">
+                <thead><tr><th>情绪</th><th>条目数</th></tr></thead>
+                <tbody>
+                  <tr><td>happy 开心</td><td>60</td></tr>
+                  <tr><td>sad 难过</td><td>22</td></tr>
+                  <tr><td>cry 大哭</td><td>15</td></tr>
+                  <tr><td>angry 生气</td><td>15</td></tr>
+                  <tr><td>neutral 平静</td><td>15</td></tr>
+                  <tr><td>love 喜欢</td><td>14</td></tr>
+                  <tr><td>tired 疲惫</td><td>11</td></tr>
+                  <tr><td>smug 得意</td><td>11</td></tr>
+                  <tr><td>surprised 惊讶</td><td>10</td></tr>
+                  <tr><td>shy 害羞</td><td>7</td></tr>
+                  <tr><td>confused 疑惑</td><td>7</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="grid-2 tight">
+              <table class="table">
+                <thead><tr><th>主体</th><th>条目数</th></tr></thead>
+                <tbody>
+                  <tr><td>cat 猫</td><td>12</td></tr>
+                  <tr><td>rabbit 兔子</td><td>7</td></tr>
+                  <tr><td>dog 狗</td><td>6</td></tr>
+                  <tr><td>bear 熊</td><td>4</td></tr>
+                  <tr><td>bird 鸟</td><td>3</td></tr>
+                  <tr><td>pig 猪</td><td>3</td></tr>
+                </tbody>
+              </table>
+              <table class="table">
+                <thead><tr><th>动作</th><th>条目数</th></tr></thead>
+                <tbody>
+                  <tr><td>greet 打招呼</td><td>10</td></tr>
+                  <tr><td>cheer 加油</td><td>7</td></tr>
+                  <tr><td>night 晚安</td><td>6</td></tr>
+                  <tr><td>sorry 道歉</td><td>4</td></tr>
+                  <tr><td>thanks 道谢</td><td>4</td></tr>
+                  <tr><td>ok</td><td>3</td></tr>
+                  <tr><td>run 跑走</td><td>2</td></tr>
+                  <tr><td>pray 祈祷</td><td>2</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 目录结构 ============ -->
+      <section id="structure" class="section">
+        <h2 class="section-title">目录结构</h2>
+        <div class="card">
+          <div class="tree">
+            <details open><summary><b>src/</b> 应用源码</summary>
+              <details open><summary><b>core/</b> 生成流水线（与界面无关，可单独复用）</summary>
+                <ul>
+                  <li><code>width.ts</code><span>显示宽度计算（EAW + 组合字符 + VS16）—— 地基</span></li>
+                  <li><code>lexicon.ts</code><span>同义词归一 → 结构化意图（规则版）</span></li>
+                  <li><code>validator.ts</code><span>质量闸门：宽度 / 括号 / 行数 / 字符安全</span></li>
+                  <li><code>retrieve.ts</code><span>策略一：成品库检索打分</span></li>
+                  <li><code>compose.ts</code><span>策略二：组件拼装（语法 + 约束 + 去重）</span></li>
+                  <li><code>glyph.ts</code><span>策略三：字形栅格化（Canvas，覆盖率 + 半格块）</span></li>
+                  <li><code>ai.ts</code><span>可选的 AI 意图解析（仅输出 JSON）</span></li>
+                  <li><code>pipeline.ts</code><span>编排：意图 → 分发 → 生成 → 校验 → 策展</span></li>
+                  <li><code>types.ts</code><span>意图 / 候选 / 情绪 / 主体 等类型定义</span></li>
+                </ul>
+              </details>
+              <details><summary><b>data/</b> 词库</summary>
+                <ul>
+                  <li><code>kaomoji.ts</code><span>成品库（167 条，含 4 条多行图案）</span></li>
+                  <li><code>parts.ts</code><span>组件库（眼 / 嘴 / 臂 / 腮红 / 装饰 / 括号）</span></li>
+                </ul>
+              </details>
+              <ul>
+                <li><code>App.tsx</code><span>界面（输入、筛选、候选卡片、复制）</span></li>
+                <li><code>main.tsx</code><span>入口</span></li>
+                <li><code>styles.css</code><span>样式</span></li>
+              </ul>
+            </details>
+            <details><summary><b>docs/</b> 文档配图与 Pages 产物</summary>
+              <ul>
+                <li><code>banner.svg</code><span>README 横幅（脚本生成）</span></li>
+                <li><code>architecture.svg</code><span>架构图（脚本生成）</span></li>
+              </ul>
+            </details>
+            <details><summary><b>scripts/</b> 工具脚本</summary>
+              <ul>
+                <li><code>visualization/generate_banner.mjs</code><span>生成 docs/banner.svg</span></li>
+                <li><code>visualization/generate_architecture.mjs</code><span>生成 docs/architecture.svg</span></li>
+                <li><code>sync-overview.mjs</code><span>把全景观览页同步到 docs/</span></li>
+              </ul>
+            </details>
+            <details><summary><b>project_overview/</b> 本页源码</summary>
+              <ul>
+                <li><code>index.html</code><span>结构骨架</span></li>
+                <li><code>style.css</code><span>全部样式</span></li>
+                <li><code>script.js</code><span>交互逻辑</span></li>
+                <li><code>charts.js</code><span>Chart.js 图表配置与数据</span></li>
+                <li><code>assets/</code><span>位图资源（SVG 优先内联）</span></li>
+              </ul>
+            </details>
+            <details><summary><b>根目录</b></summary>
+              <ul>
+                <li><code>index.html</code><span>Vite 页面模板</span></li>
+                <li><code>vite.config.ts</code><span>构建配置</span></li>
+                <li><code>tsconfig.json</code><span>TypeScript 配置</span></li>
+                <li><code>package.json</code><span>依赖与脚本</span></li>
+                <li><code>README.md</code><span>项目说明</span></li>
+                <li><code>CONTRIBUTING.md</code><span>贡献指南</span></li>
+                <li><code>CHANGELOG.md</code><span>变更日志</span></li>
+                <li><code>FAQ.md</code><span>常见问题</span></li>
+                <li><code>AUTHORS</code><span>贡献者</span></li>
+                <li><code>LICENSE</code><span>MIT</span></li>
+              </ul>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 快速开始 ============ -->
+      <section id="quickstart" class="section">
+        <h2 class="section-title">快速开始</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>安装与开发</h3>
+            <div class="code" data-lang="bash">
+              <div class="code-head"><span>终端</span><button class="copy">复制</button></div>
+<pre><code>npm install
+npm run dev      # http://localhost:5173</code></pre>
+            </div>
+            <h3>构建与预览</h3>
+            <div class="code" data-lang="bash">
+              <div class="code-head"><span>终端</span><button class="copy">复制</button></div>
+<pre><code>npm run build    # 类型检查 + 打包到 dist/
+npm run preview  # 预览构建产物
+npm run typecheck</code></pre>
+            </div>
+          </div>
+          <div class="card">
+            <h3>重新生成文档配图</h3>
+            <div class="code" data-lang="bash">
+              <div class="code-head"><span>终端</span><button class="copy">复制</button></div>
+<pre><code>node scripts/visualization/generate_banner.mjs
+node scripts/visualization/generate_architecture.mjs</code></pre>
+            </div>
+            <h3>同步本页到 docs/（GitHub Pages）</h3>
+            <div class="code" data-lang="bash">
+              <div class="code-head"><span>终端</span><button class="copy">复制</button></div>
+<pre><code>node scripts/sync-overview.mjs
+# 产物：docs/index.html + 静态资源 + docs/.nojekyll</code></pre>
+            </div>
+            <p class="note">环境要求：Node.js &gt;= 18，使用 npm（仓库带 <code>package-lock.json</code>）。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 使用示例 ============ -->
+      <section id="api" class="section">
+        <h2 class="section-title">使用示例</h2>
+        <div class="card">
+          <h3>调用生成流水线</h3>
+          <div class="code" data-lang="ts">
+            <div class="code-head"><span>src/core/pipeline.ts</span><button class="copy">复制</button></div>
+<pre><code>import { generate } from './core/pipeline'
+
+const { intent, candidates, notes } = await generate(
+  '今天有点委屈，像被雨淋湿的小狗',
+  {
+    kind: 'auto',   // 自动判断：颜文字 / 组合 / 拼字 / 图案
+    count: 6,
+    useAI: false,   // 关闭时全流程零模型调用
+  },
+)
+
+intent      // 结构化意图：类型 / 情绪 / 主体 / 动作
+candidates  // 已通过校验的候选，每条都可直接复制
+notes       // 回退与提示信息</code></pre>
+          </div>
+
+          <h3>用列宽而不是字符串长度</h3>
+          <div class="code" data-lang="ts">
+            <div class="code-head"><span>src/core/width.ts</span><button class="copy">复制</button></div>
+<pre><code>import { displayWidth, maxLineWidth, isVisuallyBalanced } from './core/width'
+
+maxLineWidth(art)          // 多行作品的最大列宽
+isVisuallyBalanced(art)    // 多行是否视觉居中（容差按列宽算）</code></pre>
+          </div>
+
+          <h3>校验一件作品</h3>
+          <div class="code" data-lang="ts">
+            <div class="code-head"><span>src/core/validator.ts</span><button class="copy">复制</button></div>
+<pre><code>import { validate, hasError } from './core/validator'
+
+const issues = validate(art, {
+  maxLines: 1,
+  maxWidth: 64,
+  requireBalancedBrackets: true,
+})
+
+if (hasError(issues)) {
+  // 有 error 级问题：丢弃这件作品
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 质量保障 ============ -->
+      <section id="quality" class="section">
+        <h2 class="section-title">质量保障</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>校验器覆盖的检查项</h3>
+            <ul class="ticks">
+              <li><b>字符安全</b>：控制字符（error）、私有使用区（error）、冷门文字区（warn）</li>
+              <li><b>宽度</b>：单行最大列宽、多行是否等宽或视觉居中</li>
+              <li><b>结构</b>：括号配对（用栈检查，支持嵌套）</li>
+              <li><b>行数</b>：按作品类型分别设上限</li>
+              <li><b>细节</b>：行尾空白提醒</li>
+            </ul>
+            <p class="note">这套闸门也是把 AI 的自由输出关进确定性笼子的手段 —— 模型只出 JSON，产物永远过校验。</p>
+          </div>
+          <div class="card">
+            <h3>工程约束</h3>
+            <ul class="ticks">
+              <li>TypeScript <code>strict</code> + <code>noUnusedLocals</code> + <code>noUnusedParameters</code></li>
+              <li>构建即类型检查：<code>tsc --noEmit &amp;&amp; vite build</code></li>
+              <li>无测试框架；以类型系统 + 校验器作为质量基线</li>
+              <li>组件拼装用种子伪随机，保证「同样输入 → 同样输出」</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 文档索引 ============ -->
+      <section id="docs" class="section">
+        <h2 class="section-title">文档索引</h2>
+        <div class="card">
+          <ul class="doclist">
+            <li><a href="./README.md">README.md</a><span>项目说明、设计取舍、快速开始</span></li>
+            <li><a href="./CONTRIBUTING.md">CONTRIBUTING.md</a><span>环境要求、提交规范、词库扩充规则</span></li>
+            <li><a href="./CHANGELOG.md">CHANGELOG.md</a><span>按 Keep a Changelog 记录的变更历史</span></li>
+            <li><a href="./FAQ.md">FAQ.md</a><span>排版歪 / 方块字 / AI 安全性等高频问题</span></li>
+            <li><a href="./AUTHORS">AUTHORS</a><span>贡献者名单</span></li>
+            <li><a href="./LICENSE">LICENSE</a><span>MIT 许可证</span></li>
+            <li><a href="./banner.svg">docs/banner.svg</a><span>README 横幅（脚本生成）</span></li>
+            <li><a href="./architecture.svg">docs/architecture.svg</a><span>架构图（脚本生成）</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ 贡献指南 ============ -->
+      <section id="contributing" class="section">
+        <h2 class="section-title">贡献指南</h2>
+        <div class="card prose">
+          <p>最容易参与的贡献是<strong>扩充词库</strong>，改动集中在 <code>src/data/</code>。</p>
+          <ul class="ticks">
+            <li><b>成品库</b> <code>kaomoji.ts</code>：必须带情绪标签；只使用主流设备都有字形的字符</li>
+            <li><b>组件库</b> <code>parts.ts</code>：零件带情绪标签；手臂左右成对且等宽</li>
+            <li>提交信息遵循 <a href="./CONTRIBUTING.md">Conventional Commits</a>（<code>feat:</code> / <code>fix:</code> / <code>docs:</code> …）</li>
+            <li>提 PR 前确认 <code>npm run build</code> 通过</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ 许可证与作者 ============ -->
+      <section id="license" class="section">
+        <h2 class="section-title">许可证与作者</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>许可证</h3>
+            <p class="prose"><b>MIT License</b> · Copyright (c) 2026 cnb.lpk</p>
+            <p class="note">可自由使用、修改、分发，只需保留版权声明与许可声明。</p>
+          </div>
+          <div class="card">
+            <h3>作者与仓库</h3>
+            <ul class="ticks">
+              <li>作者：<b>cnb.lpk</b></li>
+              <li>仓库：<a href="https://cnb.cool/lpk3215/yanwenzi">cnb.cool/lpk3215/yanwenzi</a></li>
+              <li>版本：<b>0.1.0</b></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p>颜文字工坊 · Kaomoji Studio —— 输入一句话，得到一组可以直接复制粘贴的符号作品。</p>
+        <p class="dim">本页由项目源码实际数据生成 · <a href="https://cnb.cool/lpk3215/yanwenzi">仓库</a></p>
+      </footer>
+    </main>
+  </div>
+
+  <button class="to-top" id="toTop" aria-label="返回顶部">
+    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="./charts.js"></script>
+  <script src="./script.js"></script>
+
+  <!-- 生成时间：2026-10-02 · 由 CodeBuddy 依据项目真实源码与数据生成 -->
+</body>
+</html>
